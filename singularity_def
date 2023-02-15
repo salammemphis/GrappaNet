@@ -1,0 +1,47 @@
+Bootstrap: docker
+#From: tensorflow/tensorflow:latest-gpu-py3-jupyter
+From: nvcr.io/nvidia/tensorflow:20.08-tf2-py3
+%help
+This container is made by Shahinur Alam (sajonbuet@gmail.com)
+
+%setup
+
+
+%files
+	
+%labels
+    Maintainer Shahinur
+    Version 1.0
+
+%environment
+
+
+%post
+
+	python -m pip install --upgrade pip
+	pip install numpy pandas sklearn webcolors plotly matplotlib statsmodels factorial pynrrd pillow
+	pip install --upgrade numpy
+	pip install numexpr==2.7.3
+	pip install torch
+	pip uninstall -y tables
+	pip install scikit-image medpy nilearn SimpleITK h5py nibabel tifffile scipy opencv-python tables
+	#pip install --index-url https://test.pypi.org/simple/ tables	
+	pip install keras==2.3.0
+	#tensorflow==2.2.0
+	pip install pygrappa
+	
+			
+
+%runscript
+echo "Arguments received: $*"
+port=$1
+root_dir=$2
+port=`echo $port| sed 's/ *$//g'`
+root_dir=`echo $root_dir| sed 's/ *$//g'`
+echo $port
+export JUPYTER_ALLOW_INSECURE_WRITES=true
+export JUPYTER_RUNTIME_DIR=/tmp
+chmod -R 600 /home/salam/.local/share/jupyter/runtime/
+
+jupyter notebook --no-browser --port $port --notebook-dir $root_dir --ip 0.0.0.0
+
