@@ -1,4 +1,4 @@
-###] GrappaNet, one of the great work on MRI reconstruction was published in 2020. We tried to implement it since code was not available. The paper can be found here https://arxiv.org/pdf/1910.12325v4.pdf. 
+### GrappaNet, one of the great work on MRI reconstruction was published in 2020. We tried to implement it since code was not available. The paper can be found here https://arxiv.org/pdf/1910.12325v4.pdf. 
 
 ### The implementation might not be exactly same as the author described in the paper due to the lack of proper understanding of various parameters and internal details. I would be glad if someone takes little time and verify my implementation. The MRI community will be benefitted from your input and help.  
 
