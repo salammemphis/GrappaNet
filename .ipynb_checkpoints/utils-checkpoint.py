@@ -16,6 +16,26 @@ from pygrappa.train_kernels import train_kernels
 from pygrappa.find_acs import find_acs
 
 # +
+def calculate_mask(nFE,nPE,center_fraction,acc):
+    '''
+    nFE: number of frequency encoding lines
+    nPE: number of phase encoding lines
+    center_fraction: fraction of central lines of full sampling
+    acc: acceleration factor
+    '''
+    num_low_freqs = int(round(nPE * center_fraction))
+    num_high_freqs = np.ceil(nPE/acc) - num_low_freqs 
+    num_outer_lines = nPE - num_low_freqs
+    line0 = np.repeat([True],num_high_freqs)
+    line0 = np.append(line0,np.repeat([False],num_outer_lines-num_high_freqs))
+    np.random.shuffle(line0)
+    num_left = num_outer_lines//2
+    line = np.append(line0[0:num_left],np.repeat([True],num_low_freqs))
+    line = np.append(line,line0[num_left:num_outer_lines])
+
+    mask = np.repeat(line[np.newaxis, ...], nFE, axis=0)
+    
+    return mask
 def estimate_mdgrappa_kernel(
         kspace,
         calib=None,
@@ -92,7 +112,7 @@ def Grappa_recon(kspace,start, end):
 
 
 
-def comp_sub_kspace(subk):
+def comp_sub_kspace(subk,crop_size):
     #print('img:', subk.shape)
     processed_subk=np.zeros(crop_size)
     s=subk.shape
