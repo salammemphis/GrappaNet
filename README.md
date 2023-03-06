@@ -12,4 +12,4 @@ The singuarity recipe contains all required libraries.
 "model_MR_reconstruction_GrappaNet" notebook has step by step instruction for training and testing models.
 
 ### contact
-please feel free to contact Shahinur Alam salam@stjude.org if you want to participate in this effort
+please feel free to contact Shahinur Alam {salam@stjude.org, sajonbuet@gmail.com} if you want to participate in this effort
